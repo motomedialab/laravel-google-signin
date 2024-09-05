@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": "^7.4|^8.1",
-        "laravel/socialite": "v5.16.0"
+        "laravel/socialite": "v5.0"
     },
     "require-dev": {
         "larastan/larastan": "^2.0",
