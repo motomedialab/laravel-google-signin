@@ -1,89 +1,82 @@
-# Laravel Google SignIn
+# Effortless Google Sign-In for Laravel
 
 ![GitHub Actions](https://github.com/motomedialab/laravel-google-signin/actions/workflows/tests.yaml/badge.svg)
 
-This package provides a **quick** and simple way to authenticate users with Google Sign-In in your Laravel application.
-It uses Laravel's Socialite package to handle the oAuth flow and conforming to best authentication standards.
-
-![Sign in with Google](previews/button.png)
-
-It was born from a need to quickly and easily implement Google oAuth2 authentication across multiple projects.
+Seamlessly integrate Google OAuth2 Single Sign-On into your Laravel application with this streamlined package.
+Born out of the need to efficiently implement Google OAuth2 authentication across multiple projects, this package
+leverages Laravel's [Socialite](https://laravel.com/docs/11.x/socialite) under the hood,
+adhering to best practices while simplifying the setup process. It bundles the necessary components, controllers, 
+and routes for an effortless implementation.
 
 ## Installation
 
-You can install the package via composer:
+Install via Composer:
 
 ```bash
 composer require motomedialab/laravel-google-signin
 ```
-
-You should then publish the views - this ensures the TailwindCSS styles are available to you, and allows you to customise
-the default button
-
-```bash
-php artisan vendor:publish --tag=views-google-signin
-```
-
-The package will automatically register everything it needs itself.
-
-## Configuration
-
-You only need to provide your Google Client ID and Client Secret for your oAuth2 screens - a how-to is provided below.
+The package will auto-register. Next, add your Google Client ID and Secret to your `.env` file (see below for instructions
+if you haven't set these up yet).
 
 ```text
 GOOGLE_OAUTH_CLIENT_ID=your-client-id
 GOOGLE_OAUTH_CLIENT_SECRET=your-client-secret
 ```
 
-## Outputting the Sign in with Google button
+## Using the "Sign in with Google" button
 
-You can use the default button within your project simply by calling the component:
+![Sign in with Google](previews/button.png)
+
+This package includes a ready-to-use "Sign in with Google" button. You can include it in your views as a blade component:
 
 ```blade
 <x-google-signin::button />
 ```
 
-And that's it, 
+For further styling, publish the button view to your project:
+
+```bash
+php artisan vendor:publish --tag=views-google-signin
+```
+
+That's it! You've successfully added Google SSO to your Laravel project.
+If you haven't already, you'll need to obtain your Google Client ID and Secret from the Google Developer Console.
 
 
 ### Getting your Google Client ID and Secret
 
-If you haven't already, you need to get your Google Client ID and Secret from the developer console.
+1. Visit the [Google Developer Console](https://console.developers.google.com/)
+2. Create a new project or select an existing one
+3. Navigate to the "Credentials" tab
+4. Click the "Create Credentials" button and choose "OAuth client ID".
+5. Select "Web application" as the application type
+6. Add the URL to your callback route to the "Authorized redirect URIs" list
+   1. you can find this by running `php artisan route:list --name=google-signin.store`
+7. Click "Create" to generate your Client ID and Secret
+8. Copy the generated ID and secret to your `.env` file as per [Configuration](#installation)
 
-1. Go to the [Google Developer Console](https://console.developers.google.com/)
-2. Create a new project (or utilise an existing one)
-3. Go to the "Credentials" tab
-4. Create a new "OAuth client ID" by pressing the 'Create Credentials' button
-5. Choose "Web application" as the application type
-6. Add your domain to the "Authorized JavaScript origins" list
-7. Add the URL to your callback route to the "Authorized redirect URIs" list
-   1. you can find this by running `php artisan route:list --name=google-signing.store`
-8. Copy the Client ID and Secret to your `.env` file
+### Further customisation
 
-### Customisation
-
-If you'd like to customise the package options, such as changing the login mechanism, you can do so by publishing
-the configuration file and overriding the default settings.
-
-You can publish the configuration file by running:
+To tailor the package's behavior further, such as modifying the login process, publish the
+configuration file and override the default settings:
 
 ```text
 php artisan vendor:publish --tag=config-google-signin
 ```
 
-## Contributing
+### Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
 
-If you discover any security-related issues, please email chris@motocom.co.uk instead of using the issue tracker.
+If you discover any security-related issues, please email technical@motocom.co.uk instead of using the issue tracker.
 
-## License
+### License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+This package is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for more information.
 
 ### Need help with your next project?
 
-This plugin is maintained and developed by [MotoMediaLab](https://www.motomedialab.com), a full services
-agency based in the UK. If you need help with your next project, get in touch with us!
+This plugin is maintained and developed by [MotoMediaLab](https://www.motomedialab.com), a full-service
+agency based in the UK. Contact us for assistance with your next project!
