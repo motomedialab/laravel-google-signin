@@ -43,9 +43,11 @@ jobs:
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Run static analysis
+        if: matrix.php == '8.3' && matrix.laravel == '11.*'
         run: vendor/bin/phpstan analyse
 
       - name: Ensure code structure
+        if: matrix.php == '8.3' && matrix.laravel == '11.*'
         run: vendor/bin/pint --test
 
       - name: Run tests
