@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Config;
 use Motomedialab\GoogleSignin\Contracts\AuthenticatesUser;
 use Motomedialab\GoogleSignin\Tests\Stubs\TestUser;
 
-beforeEach(fn() => $this->loadMigrationsFrom(__DIR__.'/../migrations'));
+beforeEach(fn () => $this->loadMigrationsFrom(__DIR__.'/../migrations'));
 
 it('will authenticate a user', function () {
 

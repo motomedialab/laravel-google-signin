@@ -10,8 +10,6 @@ use Laravel\Socialite\SocialiteManager;
 use Motomedialab\GoogleSignin\Actions\AuthenticateUser;
 use Motomedialab\GoogleSignin\Contracts\AuthenticatesUser;
 use Motomedialab\GoogleSignin\SocialiteProviders\GoogleSigninProvider;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class GoogleSigninServiceProvider extends ServiceProvider
 {
