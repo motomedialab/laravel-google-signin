@@ -10,7 +10,7 @@ class AuthenticateUser implements AuthenticatesUser
 {
     public function __invoke(Authenticatable $model): RedirectResponse
     {
-        auth()->login($model, true);
+        auth(config('google-signin.auth-guard', 'web'))->login($model, true);
 
         return redirect()->intended();
     }

@@ -7,6 +7,11 @@ return [
     'middleware' => ['web', 'guest'],
 
     /**
+     * The guard that should be used to authenticate the user.
+     */
+    'auth_guard' => env('GOOGLE_OAUTH_AUTH_GUARD', config('auth.defaults.guard')),
+
+    /**
      * The authentication path to the socialite controller.
      * This should only be changed if it conflicts with an existing route.
      */
