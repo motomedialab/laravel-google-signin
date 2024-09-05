@@ -1,13 +1,13 @@
 # Laravel Google SignIn
 
-![GitHub Actions](https://github.com/motomedialab/laravel-google-signin/actions/workflows/main.yml/badge.svg)
+![GitHub Actions](https://github.com/motomedialab/laravel-google-signin/actions/workflows/tests.yaml/badge.svg)
 
-This package provides a simple way to authenticate users with Google Sign-In in your Laravel application.
+This package provides a **quick** and simple way to authenticate users with Google Sign-In in your Laravel application.
 It uses Laravel's Socialite package to handle the oAuth flow and conforming to best authentication standards.
 
 ![Sign in with Google](previews/button.png)
 
-This package was born from a need to quickly and easily implement Google oAuth2 authentication across multiple projects.
+It was born from a need to quickly and easily implement Google oAuth2 authentication across multiple projects.
 
 ## Installation
 
@@ -43,9 +43,12 @@ You can use the default button within your project simply by calling the compone
 <x-google-signin::button />
 ```
 
-## Getting your Google Client ID and Secret
+And that's it, 
 
-To get your Google Client ID and Secret, you need to create a new project in the Google Developer Console.
+
+### Getting your Google Client ID and Secret
+
+If you haven't already, you need to get your Google Client ID and Secret from the developer console.
 
 1. Go to the [Google Developer Console](https://console.developers.google.com/)
 2. Create a new project (or utilise an existing one)
@@ -57,7 +60,7 @@ To get your Google Client ID and Secret, you need to create a new project in the
    1. you can find this by running `php artisan route:list --name=google-signing.store`
 8. Copy the Client ID and Secret to your `.env` file
 
-## Customisation
+### Customisation
 
 If you'd like to customise the package options, such as changing the login mechanism, you can do so by publishing
 the configuration file and overriding the default settings.
@@ -79,3 +82,8 @@ If you discover any security-related issues, please email chris@motocom.co.uk in
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+### Need help with your next project?
+
+This plugin is maintained and developed by [MotoMediaLab](https://www.motomedialab.com), a full services
+agency based in the UK. If you need help with your next project, get in touch with us!
