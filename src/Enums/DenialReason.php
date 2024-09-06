@@ -28,15 +28,13 @@ enum DenialReason: string
 
     private function getErrorDetailsAttribute(): ?ErrorDetails
     {
-        return once(function () {
-            try {
-                $reflection = new ReflectionEnum($this);
-                $attributes = $reflection->getCase($this->name)->getAttributes(ErrorDetails::class);
-            } catch (\ReflectionException) {
-                return null;
-            }
+        try {
+            $reflection = new ReflectionEnum($this);
+            $attributes = $reflection->getCase($this->name)->getAttributes(ErrorDetails::class);
+        } catch (\ReflectionException) {
+            return null;
+        }
 
-            return ($attributes[0] ?? null)?->newInstance();
-        });
+        return ($attributes[0] ?? null)?->newInstance();
     }
 }
