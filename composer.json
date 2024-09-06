@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.1",
+        "php": "^8.1",
         "laravel/socialite": "^v5.0"
     },
     "require-dev": {

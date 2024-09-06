@@ -5,28 +5,27 @@ namespace Motomedialab\GoogleSignin\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Facades\Socialite;
 use Motomedialab\GoogleSignin\Contracts\AuthenticatesUser;
+use Motomedialab\GoogleSignin\Contracts\DeniesAccess;
+use Motomedialab\GoogleSignin\Enums\DenialReason;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse;
 
 class GoogleSigninController
 {
-    /**
-     * @return RedirectResponse|SymfonyRedirectResponse
-     */
-    public function index()
+    public function index(): SymfonyRedirectResponse|RedirectResponse
     {
         return Socialite::driver('google-signin')->redirect();
     }
 
-    public function store(AuthenticatesUser $authenticate)
+    public function store(AuthenticatesUser $authenticate, DeniesAccess $deny): mixed
     {
         try {
             // get our socialite user
             $socialiteUser = Socialite::driver('google-signin')->user();
         } catch (\Throwable $e) {
-            abort(403, __('Failed to authenticate with Google'));
+            return $deny(DenialReason::InvalidState);
         }
 
-        // create a query instance
+        // create a query instance from our model
         $builder = config('google-signin.user_model')::query();
 
         // attempt to find our user by google_id
@@ -34,13 +33,18 @@ class GoogleSigninController
             return $authenticate($user);
         }
 
+        // check if our email has a pre-existing Google ID (possible email hijacking)
+        if ($builder->clone()->whereNotNull('google_id')->where('email', $socialiteUser->getEmail())->exists()) {
+            return $deny(DenialReason::GoogleIdMismatch);
+        }
+
         // attempt to find our user by email and set their google_id
-        if ($user = $builder->whereNull('google_id')->firstWhere('email', $socialiteUser->getEmail())) {
+        if ($user = $builder->firstWhere('email', $socialiteUser->getEmail())) {
             $user->forceFill(['google_id' => $socialiteUser->getId()])->save();
 
             return $authenticate($user);
         }
 
-        abort(403, __('Failed to authenticate with Google'));
+        return $deny(DenialReason::EmailNotFound);
     }
 }

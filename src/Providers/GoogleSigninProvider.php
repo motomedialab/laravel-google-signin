@@ -1,6 +1,6 @@
 <?php
 
-namespace Motomedialab\GoogleSignin\SocialiteProviders;
+namespace Motomedialab\GoogleSignin\Providers;
 
 use Laravel\Socialite\Two\GoogleProvider;
 

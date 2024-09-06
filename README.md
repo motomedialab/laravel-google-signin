@@ -42,8 +42,9 @@ php artisan vendor:publish --tag=views-google-signin
 That's it! You've successfully added Google SSO to your Laravel project.
 If you haven't already, you'll need to obtain your Google Client ID and Secret from the Google Developer Console.
 
+---
 
-### Getting your Google Client ID and Secret
+## Getting your Google Client ID and Secret
 
 1. Visit the [Google Developer Console](https://console.developers.google.com/)
 2. Create a new project or select an existing one
@@ -63,6 +64,19 @@ configuration file and override the default settings:
 ```text
 php artisan vendor:publish --tag=config-google-signin
 ```
+
+### So what does it actually do?
+
+From a technical standpoint this package adds a `google_id` column to your users table. When a user attempts
+to log in with Google, we'll check if a user with the same Google ID already exists - if it does, we'll log them in.
+
+If it doesn't, and there's a user with a matching email address, we'll link the Google ID to that user and log them in.
+
+If both checks fail, we'll return a 403 forbidden response. **It's important to note that a user must have a
+corresponding Google email address already registered on your platform to be able to gain access.**
+
+We store the Google ID to prevent future 'email hijacking' attacks, where a user could change their email address
+to one that's already in use/was in use by another user.
 
 ### Contributing
 

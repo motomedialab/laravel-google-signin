@@ -12,6 +12,16 @@ beforeEach(function () {
     $this->loadMigrationsFrom(__DIR__.'/../migrations');
 });
 
+it('throttles the amount of times the auth route is hit', function () {
+    $route = route('google-signin.index');
+
+    for ($i = 0; $i <= 3; $i++) {
+        $response = $this->get($route);
+    }
+
+    expect($response->status())->toBe(429);
+});
+
 it('redirects away to google with required parameters', function () {
     $route = route('google-signin.index');
 
@@ -31,10 +41,14 @@ it('redirects away to google with required parameters', function () {
         ->redirect_uri->toBe(route('google-signin.store'));
 });
 
-it('will return 403 when no user is found', function () {
+it('will return 400 when state is invalid', function () {
+    $this->get(route('google-signin.store'))->assertStatus(400);
+});
+
+it('will return 401 when no user is found', function () {
     Config::set('google-signin.provider', MockSigninProvider::class);
 
-    $this->get(route('google-signin.store'))->assertStatus(403);
+    $this->get(route('google-signin.store'))->assertStatus(401);
 });
 
 it('will return 403 when a google id is incorrect and email matches', function () {
