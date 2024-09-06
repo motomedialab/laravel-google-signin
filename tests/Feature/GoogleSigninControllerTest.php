@@ -15,7 +15,7 @@ beforeEach(function () {
 it('throttles the amount of times the auth route is hit', function () {
     $route = route('google-signin.index');
 
-    for ($i = 0; $i <= 3; $i++) {
+    for ($i = 0; $i <= 5; $i++) {
         $response = $this->get($route);
     }
 
