@@ -40,9 +40,11 @@ class GoogleSigninController
 
         // attempt to find our user by email and set their google_id
         if ($user = $builder->firstWhere('email', $socialiteUser->getEmail())) {
+            $response = $authenticate($user);
+            
             $user->forceFill(['google_id' => $socialiteUser->getId()])->save();
-
-            return $authenticate($user);
+            
+            return $response;
         }
 
         return $deny(DenialReason::EmailNotFound);
